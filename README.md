@@ -63,11 +63,13 @@ npm（推荐）：
 dsh plugin --profile web add dsh-jvm-doctor
 ```
 
-预构建 tarball（与 npm 上是同一份产物，适合离线或需要固定版本；同样无需构建步骤，也避开 pnpm 的 `allowBuilds` 授权）：
+预构建 tarball（与 npm 上是同一份产物，无需构建步骤，也避开 pnpm 的 `allowBuilds` 授权）：
 
 ```sh
-dsh plugin --profile web add https://github.com/ax2/dsh-jvm-doctor/releases/download/v0.1.1/dsh-jvm-doctor-0.1.1.tgz
+dsh plugin --profile web add https://github.com/ax2/dsh-jvm-doctor/releases/latest/download/dsh-jvm-doctor.tgz
 ```
+
+要固定版本就把 `latest/download/dsh-jvm-doctor.tgz` 换成 `download/v<version>/dsh-jvm-doctor-<version>.tgz`。
 
 本地开发：不安装，直接挂载构建产物。
 
@@ -327,7 +329,7 @@ pnpm build                  # 产出 lib/（ESM + .d.ts，导入已改写为 .js
 ## 兼容性与风险
 
 - 官方插件 API 自称 **pre-stable，无冻结承诺**；本插件只依赖最稳定的两个面：`ctx.tools.register(defineTool(...))` 与 `apply(ctx, config)`。
-- **验证到什么程度（不夸大）**：`tsc --noEmit` 0 错误；47 个用例在真实 `@deepseek-ai/dsh-tools` 上跑通组装路径；`lib/` 产物由 `research/plugin-smoke.mjs`（stub registry）加载并验证 5 个工具全部注册、schema 齐全、无重名、无 default export、`dsh.bundle` 指向存在且 id 正确的 patch；Node 22 / 24 的 CI 矩阵；npm 上的版本用 `dsh plugin --profile <scratch> add` 装进一个临时 profile 后，真实 `dsh` 启动把本包 5 个工具 schema 发给了模型（会话日志核对）。**尚未做**：带有效 LLM 凭据的完整一问一答（本机没有可用 API key，启动到发请求即 401）。
+- **验证到什么程度（不夸大）**：`tsc --noEmit` 0 错误；47 个用例在真实 `@deepseek-ai/dsh-tools` 上跑通组装路径；`lib/` 产物由 `research/plugin-smoke.mjs`（stub registry）加载并验证 5 个工具全部注册、schema 齐全、无重名、无 default export、`dsh.bundle` 指向存在且 id 正确的 patch；Node 22 / 24 的 CI 矩阵；npm 上的版本用 `dsh plugin --profile <scratch> add` 装进一个临时 profile 后，真实 `dsh` 启动把本包 5 个工具 schema 发给了模型（会话日志核对）。**真实对话也跑通了**：同一个临时 profile 接上本机 desktop profile 用的那条 LLM 路由后，模型在真实回合里调用了 `java_stack_trace`（3 行异常链），正确报出 `root_cause`、帧位置与 100% 解析覆盖率（会话 `session-b5681b93`）。**尚未做**：跨多个真实会话的调用统计（这属于 M3）。
 - **语法是启发式的**：不同 JDK 版本的 dump/GC 文案、各构建工具的输出变体都可能落在已知语法之外 —— 这正是 `unknown_lines` 存在的理由；覆盖率下降就是「这份报告我没完全看懂」的信号，请以它为准。
 - **不做因果推断**：工具给的是结构化事实与明确的 finding（例如「97.7% 堆占用触发回收」），不是「你的服务就是这样挂的」。
 - GC 分配速率是**线性估算**（首尾时间戳窗口内的正堆增量），不含分代细节，仅作量级参考。
