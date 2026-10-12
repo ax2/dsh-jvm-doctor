@@ -18,7 +18,9 @@ MIT License · DSH 0.2.0-rc.2 验证通过 · Node ≥ 20.10（运行）/ ≥ 22
 dsh plugin --profile web add dsh-jvm-doctor
 ```
 
-装完**重启应用**。想一次装齐四个插件（含 [deterministic-tools](https://github.com/ax2/dsh-deterministic-tools) / [py-doctor](https://github.com/ax2/dsh-py-doctor) / [win-native](https://github.com/ax2/dsh-win-native)）用 [`dsh-zidev-toolbox`](https://github.com/ax2/dsh-zidev-toolbox)；**别和单独安装混用**。
+装完**重启应用**。想一次装齐四个插件（含 [deterministic-tools](https://github.com/ax2/dsh-deterministic-tools) / [py-doctor](https://github.com/ax2/dsh-py-doctor) / [win-native](https://github.com/ax2/dsh-win-native)）用 [`@ax2zicode/dsh-dev-toolbox`](https://github.com/ax2/dsh-dev-toolbox)；**别和单独安装混用**。
+
+**家族总览**：[zicode.com/software](https://zicode.com/software/) 是四个插件、合装包与桌面软件的统一入口。
 
 **15 秒看效果** —— 把异常栈贴进去，模型调用 `java_stack_trace`，拿回（实测输出）：
 
@@ -32,7 +34,7 @@ frames:     com.acme.Main.main(Main.java:7)      coverage: 100% (3/3, parser 1)
 
 **为什么不让模型自己写 pwsh？** 死锁环、GC 停顿 p50/p90/p99、依赖冲突消解、`... N more` 折叠还原——写成脚本都是几十行，每次还得重新写对；工具是固定实现 + 47 个测试，并且**只出结构化事实、不做因果推断**。
 
-相邻插件：[dsh-deterministic-tools](https://github.com/ax2/dsh-deterministic-tools) · [dsh-py-doctor](https://github.com/ax2/dsh-py-doctor) · [dsh-win-native](https://github.com/ax2/dsh-win-native) · [dsh-zidev-toolbox](https://github.com/ax2/dsh-zidev-toolbox)
+相邻插件：[dsh-deterministic-tools](https://github.com/ax2/dsh-deterministic-tools) · [dsh-py-doctor](https://github.com/ax2/dsh-py-doctor) · [dsh-win-native](https://github.com/ax2/dsh-win-native) · [dsh-dev-toolbox](https://github.com/ax2/dsh-dev-toolbox)
 
 ---
 
