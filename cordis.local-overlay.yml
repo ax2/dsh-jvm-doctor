@@ -1,0 +1,5 @@
+# Local smoke overlay: mounts the built plugin without installing it into a profile.
+# Requires `pnpm build` first, so `lib/index.js` exists.
+- insert:
+    - id: jvm-doctor-local
+      name: 'D:/dsh/dsh-jvm-doctor/lib/index.js'

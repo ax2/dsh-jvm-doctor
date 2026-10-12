@@ -1,0 +1,67 @@
+{
+  "name": "dsh-jvm-doctor",
+  "version": "0.1.0",
+  "description": "Offline-only JVM production-report diagnostics for DeepSeek Harness: thread dumps, GC logs, dependency conflicts, stack traces and Spring config diffs — no jcmd, no jstack, no network.",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.10"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test --experimental-strip-types test/*.test.ts",
+    "check": "npm run typecheck && npm test"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "jvm",
+    "java",
+    "thread-dump",
+    "jstack",
+    "gc-log",
+    "stack-trace",
+    "maven",
+    "gradle",
+    "offline",
+    "deterministic"
+  ],
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.0",
+    "@deepseek-ai/dsh-tools": ">=0.2.0-rc.1"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.4",
+    "@deepseek-ai/dsh-llm": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-tools": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-util-values": "0.2.0-rc.2",
+    "@deepseek-ai/schemastery": "3.18.4",
+    "@types/node": "24",
+    "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "yaml": "2.8.1"
+  }
+}
