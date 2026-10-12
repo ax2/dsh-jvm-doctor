@@ -9,6 +9,33 @@ MIT License · DSH 0.2.0-rc.2 验证通过 · Node ≥ 20.10（运行）/ ≥ 22
 
 ---
 
+## 快速开始
+
+[![npm](https://img.shields.io/npm/v/dsh-jvm-doctor)](https://www.npmjs.com/package/dsh-jvm-doctor)
+![tools](https://img.shields.io/badge/tools-5-blue) ![tests](https://img.shields.io/badge/tests-47%20passing-brightgreen) ![network](https://img.shields.io/badge/network-none-informational) ![license](https://img.shields.io/badge/license-MIT-lightgrey)
+
+```sh
+dsh plugin --profile web add dsh-jvm-doctor
+```
+
+装完**重启应用**。想一次装齐四个插件（含 [deterministic-tools](https://github.com/ax2/dsh-deterministic-tools) / [py-doctor](https://github.com/ax2/dsh-py-doctor) / [win-native](https://github.com/ax2/dsh-win-native)）用 [`dsh-zidev-toolbox`](https://github.com/ax2/dsh-zidev-toolbox)；**别和单独安装混用**。
+
+**15 秒看效果** —— 把异常栈贴进去，模型调用 `java_stack_trace`，拿回（实测输出）：
+
+```
+root_cause: java.lang.IllegalStateException: inner
+primary:    java.lang.RuntimeException: boom
+frames:     com.acme.Main.main(Main.java:7)      coverage: 100% (3/3, parser 1)
+```
+
+线程 dump 同理：`java_thread_dump` 给出 **Java 级死锁环**（`waiting_for` / `holding` 链），而不是让你在 500 个线程里自己找。
+
+**为什么不让模型自己写 pwsh？** 死锁环、GC 停顿 p50/p90/p99、依赖冲突消解、`... N more` 折叠还原——写成脚本都是几十行，每次还得重新写对；工具是固定实现 + 47 个测试，并且**只出结构化事实、不做因果推断**。
+
+相邻插件：[dsh-deterministic-tools](https://github.com/ax2/dsh-deterministic-tools) · [dsh-py-doctor](https://github.com/ax2/dsh-py-doctor) · [dsh-win-native](https://github.com/ax2/dsh-win-native) · [dsh-zidev-toolbox](https://github.com/ax2/dsh-zidev-toolbox)
+
+---
+
 ## 为什么需要它
 
 JVM 生产排查的证据几乎全部长这样：一段 `jstack` 输出、一坨 `-Xlog:gc` 日志、一棵 `dependency:tree`、一条 `Caused by:` 链、一份 `application.yml`。这些文本**运维手里已经有了**，但模型拿到之后只能：

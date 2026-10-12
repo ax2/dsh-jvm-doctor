@@ -1,6 +1,6 @@
 {
   "name": "dsh-jvm-doctor",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Offline-only JVM production-report diagnostics for DeepSeek Harness: thread dumps, GC logs, dependency conflicts, stack traces and Spring config diffs — no jcmd, no jstack, no network.",
   "type": "module",
   "main": "lib/index.js",
