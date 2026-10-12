@@ -24,8 +24,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "node --test --experimental-strip-types test/*.test.ts",
-    "check": "npm run typecheck && npm test"
+    "test": "node --test test/*.test.ts",
+    "check": "npm run typecheck && npm test",
+    "prepublishOnly": "npm run build && npm run check"
   },
   "keywords": [
     "dsh",
@@ -43,6 +44,17 @@
     "deterministic"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ax2/dsh-jvm-doctor.git"
+  },
+  "homepage": "https://github.com/ax2/dsh-jvm-doctor#readme",
+  "bugs": {
+    "url": "https://github.com/ax2/dsh-jvm-doctor/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
