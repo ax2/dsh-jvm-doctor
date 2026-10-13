@@ -1,6 +1,6 @@
 {
   "name": "dsh-jvm-doctor",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "DSH plugin: offline JVM production-report diagnostics — thread dumps with Java-level deadlock cycles, GC-log pause percentiles, Maven/Gradle dependency conflicts, exception chains and Spring config diffs. Never touches a running process: no jcmd, no jstack, no attach, no network.",
   "type": "module",
   "main": "lib/index.js",
